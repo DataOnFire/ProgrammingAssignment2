@@ -10,6 +10,7 @@
 ## The makeCacheMatrix function creates a special matrix object that 
 ## will cache its inverse. This function is used by cacheSolve.
 makeCacheMatrix <- function(x = matrix()) {
+        ## Define functions for set, get, setmatrix and getmatrix
         m <- NULL
         set <- function(y) {
                 x <<- y
@@ -30,12 +31,18 @@ makeCacheMatrix <- function(x = matrix()) {
 ## from the cache. If not it will compute it, and then cache it for
 ## future use.
 cacheSolve <- function(x, ...) {
+        
         ## Return a matrix that is the inverse of 'x'
         m <- x$getmatrix()
+        
+        ## Check to see if this inverse is already cached and if
+        ## so return it
         if(!is.null(m)) {
                 message("getting cached data")
                 return(m)
         }
+        
+        ## If not then solve it, cache and return
         data <- x$get()
         m <- solve(data, ...)
         x$setmatrix(m)
